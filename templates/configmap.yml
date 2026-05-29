@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: roboshop-{{ .Values.app_name }}
 data:
-  {{- include ".Values.config_map" . | nindent 2 }}
+  {{- toYaml .Values.config_map | nindent 2 }}
 
