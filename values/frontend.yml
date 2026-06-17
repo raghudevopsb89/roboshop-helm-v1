@@ -3,11 +3,15 @@ app_port: 80
 #service_type: LoadBalancer  # Commented this, Because we moved to traefik ingress
 
 prometheus:
-  enabled: false
+  enabled: true
+  path: /metrics
+  exporter:
+    enabled: true
+    image: nginx/nginx-prometheus-exporter:1.4.2
+    port: 9113
   serviceMonitor:
-    enabled: false
+    enabled: true
+    portName: metrics
 
 ingress:
   enabled: true
-
-

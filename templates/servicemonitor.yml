@@ -25,7 +25,7 @@ spec:
     matchNames:
       - {{ .Release.Namespace }}
   endpoints:
-    - port: http
+    - port: {{ .Values.prometheus.serviceMonitor.portName | default "http" }}
       path: {{ .Values.prometheus.path | default "/metrics" | quote }}
       interval: {{ .Values.prometheus.serviceMonitor.interval | default "30s" | quote }}
       scrapeTimeout: {{ .Values.prometheus.serviceMonitor.scrapeTimeout | default "10s" | quote }}

@@ -20,4 +20,10 @@ spec:
       protocol: TCP
       port: {{ .Values.app_port }} # Service Port
       targetPort: {{ .Values.app_port }} # Container Port
+    {{- if and .Values.prometheus .Values.prometheus.exporter .Values.prometheus.exporter.enabled }}
+    - name: metrics
+      protocol: TCP
+      port: {{ .Values.prometheus.exporter.port | default 9113 }}
+      targetPort: metrics
+    {{- end }}
 

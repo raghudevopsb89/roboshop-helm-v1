@@ -20,7 +20,7 @@ spec:
       {{- if $prometheusEnabled }}
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "{{ .Values.app_port }}"
+        prometheus.io/port: "{{ if and .Values.prometheus.exporter .Values.prometheus.exporter.enabled }}{{ .Values.prometheus.exporter.port | default 9113 }}{{ else }}{{ .Values.app_port }}{{ end }}"
         prometheus.io/path: {{ .Values.prometheus.path | default "/metrics" | quote }}
       {{- end }}
     spec:
@@ -31,3 +31,12 @@ spec:
         envFrom:
           - configMapRef:
               name: roboshop-{{ .Values.app_name }}
+      {{- if and .Values.prometheus .Values.prometheus.exporter .Values.prometheus.exporter.enabled }}
+      - name: nginx-exporter
+        image: {{ .Values.prometheus.exporter.image | default "nginx/nginx-prometheus-exporter:1.4.2" }}
+        args:
+          - -nginx.scrape-uri=http://127.0.0.1:{{ .Values.app_port }}/stub_status
+        ports:
+          - name: metrics
+            containerPort: {{ .Values.prometheus.exporter.port | default 9113 }}
+      {{- end }}
