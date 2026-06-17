@@ -1,6 +1,9 @@
 app_name: orders
 app_port: 8007
 
+prometheus:
+  path: /actuator/prometheus
+
 config_map:
   MONGO_URL : mongodb://mongodb-dev.rdevopsb89.online:27017/orders
   AMQP_HOST : rabbitmq-dev.rdevopsb89.online

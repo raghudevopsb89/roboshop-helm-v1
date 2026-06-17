@@ -1,6 +1,9 @@
 app_name: shipping
 app_port: 8004
 
+prometheus:
+  path: /actuator/prometheus
+
 config_map:
   DB_HOST : mysql-dev.rdevopsb89.online
   DB_USER : shipping

@@ -2,6 +2,9 @@ app_name: frontend
 app_port: 80
 #service_type: LoadBalancer  # Commented this, Because we moved to traefik ingress
 
+prometheus:
+  enabled: false
+
 ingress:
   enabled: true
 

@@ -13,6 +13,12 @@ spec:
     metadata:
       labels:
         app: roboshop-{{ .Values.app_name }}
+      {{- if (.Values.prometheus.enabled | default true) }}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.app_port }}"
+        prometheus.io/path: {{ .Values.prometheus.path | default "/metrics" | quote }}
+      {{- end }}
     spec:
       containers:
       - name: roboshop-{{ .Values.app_name }}

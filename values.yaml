@@ -7,3 +7,7 @@ ingress:
 config_map: {}
 
 service_type: ClusterIP
+
+prometheus:
+  enabled: true
+  path: /metrics
