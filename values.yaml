@@ -13,9 +13,11 @@ prometheus:
   path: /metrics
   serviceMonitor:
     enabled: true
+    # ServiceMonitor CR namespace. Existing stack monitors only discover SMs in default.
+    namespace: default
     interval: 30s
     scrapeTimeout: 10s
-    # Labels must match your Prometheus Operator serviceMonitorSelector.
-    # kube-prometheus-stack typically uses release: prometheus
+    # Labels must match Prometheus Operator serviceMonitorSelector.
+    # This cluster uses kube-prometheus-stack release name "pstack".
     labels:
-      release: prometheus
+      release: pstack
