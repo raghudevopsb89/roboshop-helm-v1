@@ -27,6 +27,7 @@ spec:
       containers:
       - name: roboshop-{{ .Values.app_name }}
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}
+        imagePullPolicy: Always
         envFrom:
           - configMapRef:
               name: roboshop-{{ .Values.app_name }}
