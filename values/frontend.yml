@@ -4,6 +4,8 @@ app_port: 80
 
 prometheus:
   enabled: false
+  serviceMonitor:
+    enabled: false
 
 ingress:
   enabled: true

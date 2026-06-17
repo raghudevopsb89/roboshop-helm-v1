@@ -1,0 +1,31 @@
+{{- $prometheusEnabled := true -}}
+{{- if and .Values.prometheus (kindIs "bool" .Values.prometheus.enabled) -}}
+{{- $prometheusEnabled = .Values.prometheus.enabled -}}
+{{- end -}}
+{{- $serviceMonitorEnabled := true -}}
+{{- if and .Values.prometheus .Values.prometheus.serviceMonitor (kindIs "bool" .Values.prometheus.serviceMonitor.enabled) -}}
+{{- $serviceMonitorEnabled = .Values.prometheus.serviceMonitor.enabled -}}
+{{- end -}}
+{{- if and $prometheusEnabled $serviceMonitorEnabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: roboshop-{{ .Values.app_name }}
+  labels:
+    app: roboshop-{{ .Values.app_name }}
+    {{- with .Values.prometheus.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app: roboshop-{{ .Values.app_name }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  endpoints:
+    - port: http
+      path: {{ .Values.prometheus.path | default "/metrics" | quote }}
+      interval: {{ .Values.prometheus.serviceMonitor.interval | default "30s" | quote }}
+      scrapeTimeout: {{ .Values.prometheus.serviceMonitor.scrapeTimeout | default "10s" | quote }}
+{{- end }}

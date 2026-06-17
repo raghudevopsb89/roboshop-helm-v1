@@ -13,7 +13,11 @@ spec:
     metadata:
       labels:
         app: roboshop-{{ .Values.app_name }}
-      {{- if (.Values.prometheus.enabled | default true) }}
+      {{- $prometheusEnabled := true -}}
+      {{- if and .Values.prometheus (kindIs "bool" .Values.prometheus.enabled) -}}
+      {{- $prometheusEnabled = .Values.prometheus.enabled -}}
+      {{- end -}}
+      {{- if $prometheusEnabled }}
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "{{ .Values.app_port }}"

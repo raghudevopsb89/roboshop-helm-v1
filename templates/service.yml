@@ -2,12 +2,22 @@ apiVersion: v1
 kind: Service
 metadata:
   name: roboshop-{{ .Values.app_name }}
+  labels:
+    app: roboshop-{{ .Values.app_name }}
+    {{- $prometheusEnabled := true -}}
+    {{- if and .Values.prometheus (kindIs "bool" .Values.prometheus.enabled) -}}
+    {{- $prometheusEnabled = .Values.prometheus.enabled -}}
+    {{- end -}}
+    {{- if $prometheusEnabled }}
+    prometheus.io/scrape: "true"
+    {{- end }}
 spec:
   type: {{ .Values.service_type | default "ClusterIP" }}
   selector:
     app: roboshop-{{ .Values.app_name }}
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: {{ .Values.app_port }} # Service Port
       targetPort: {{ .Values.app_port }} # Container Port
 
