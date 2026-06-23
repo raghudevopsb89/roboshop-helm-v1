@@ -5,7 +5,7 @@ metadata:
   labels:
     app: roboshop-{{ .Values.app_name }}
 spec:
-  replicas: 1
+  #replicas: 1
   selector:
     matchLabels:
       app: roboshop-{{ .Values.app_name }}
