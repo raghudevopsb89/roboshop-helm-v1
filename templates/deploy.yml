@@ -28,6 +28,8 @@ spec:
       - name: roboshop-{{ .Values.app_name }}
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}
         imagePullPolicy: Always
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
         envFrom:
           - configMapRef:
               name: roboshop-{{ .Values.app_name }}

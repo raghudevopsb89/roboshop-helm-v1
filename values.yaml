@@ -21,3 +21,12 @@ prometheus:
     # This cluster uses kube-prometheus-stack release name "pstack".
     labels:
       release: pstack
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "100m"
+  limits:
+    memory: "128Mi"
+    cpu: "150m"
+
