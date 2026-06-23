@@ -41,4 +41,11 @@ spec:
         ports:
           - name: metrics
             containerPort: {{ .Values.prometheus.exporter.port | default 9113 }}
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "150m"
       {{- end }}
