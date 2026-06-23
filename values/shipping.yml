@@ -17,10 +17,10 @@ job:
 resources:
   requests:
     memory: "512Mi"
-    cpu: "100m"
+    cpu: "300m"
   limits:
     memory: "750Mi"
-    cpu: "150m"
+    cpu: "500m"
 
 
 
