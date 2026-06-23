@@ -13,5 +13,12 @@ config_map:
   NOTIFICATION_URL : http://localhost:8008
   PORT : "8007"
 
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "100m"
+  limits:
+    memory: "750Mi"
+    cpu: "150m"
 
 
