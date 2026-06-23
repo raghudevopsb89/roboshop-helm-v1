@@ -10,3 +10,12 @@ job:
   enabled: true
 
 
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "100m"
+  limits:
+    memory: "750Mi"
+    cpu: "150m"
+
+
