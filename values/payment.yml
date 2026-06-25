@@ -8,6 +8,7 @@ config_map:
   CART_URL : http://roboshop-cart:8003
   USER_URL : http://roboshop-user:8001
   PORT : "8005"
+  NEW_RELIC_LICENSE_KEY: b1d3d69660c3e7f58b48d1974fd0776b24a3NRAL
 
 
 resources:
