@@ -28,6 +28,27 @@ spec:
       - name: roboshop-{{ .Values.app_name }}
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}
         imagePullPolicy: Always
+        startupProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.app_port }}
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.app_port }}
+          initialDelaySeconds: 15
+          periodSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.app_port }}
+          initialDelaySeconds: 30
+          periodSeconds: 3
+          failureThreshold: 3
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         envFrom:
