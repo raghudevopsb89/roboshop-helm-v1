@@ -8,3 +8,12 @@ config_map:
   NEW_RELIC_LICENSE_KEY: b1d3d69660c3e7f58b48d1974fd0776b24a3NRAL
   NEW_RELIC_APP_NAME: cart
 
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "750Mi"
+    cpu: "1000m"
+
+
