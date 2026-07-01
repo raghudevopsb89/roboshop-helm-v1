@@ -13,5 +13,5 @@ spec:
         severity: critical
       annotations:
         summary: "HttpResponseTimeHigh for {{`{{ $labels.service }}`}}"
-        description: "Thre is a high response time been observed for this application"
+        description: "There is a high response time been observed for this application"
 
