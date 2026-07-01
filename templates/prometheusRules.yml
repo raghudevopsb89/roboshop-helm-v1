@@ -21,4 +21,14 @@ spec:
       annotations:
         summary: "HttpResponseTimeHigh for {{`{{ $labels.service }}`}}"
         description: "There is a high response time been observed for this application"
+{{ if .Values.app_name == "frontend" }}
+    - alert: HttpFailuresFromTraefik
+      expr: traefik_service_requests_total{service="roboshop-roboshop-frontend-80@kubernetes",code =~ "499|502"} > 0
+      for: 30s
+      labels:
+        severity: critical
+      annotations:
+        summary: "HttpFailures for {{`{{ $labels.service }}`}}"
+        description: "HTTP Failures reported"
+{{ end }}
 
