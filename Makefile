@@ -3,7 +3,7 @@ install:
 	@helm upgrade --install $(component_name) ./ -f values/$(component_name).yml -n roboshop
 
 upgrade:
-	@helm upgrade --install $(component_name) ./ -f values/$(component_name).yml -n roboshop
+	@helm upgrade --install $(component_name) ./ -f values/$(component_name).yml -n roboshop --set github_sha=$(github_sha)
 
 
 all:

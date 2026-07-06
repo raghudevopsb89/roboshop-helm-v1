@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: roboshop-{{ .Values.app_name }}
-        image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}
+        image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}:${{ .Values.github_sha }}
         imagePullPolicy: Always
         startupProbe:
           httpGet:
