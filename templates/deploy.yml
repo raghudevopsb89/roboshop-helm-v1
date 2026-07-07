@@ -24,10 +24,15 @@ spec:
         prometheus.io/path: {{ .Values.prometheus.path | default "/metrics" | quote }}
       {{- end }}
     spec:
+      terminationGracePeriodSeconds: 60
       containers:
       - name: roboshop-{{ .Values.app_name }}
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}:{{ .Values.github_sha }}
         imagePullPolicy: Always
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 30"] # Traffic stops routing here
         startupProbe:
           httpGet:
             path: /health
