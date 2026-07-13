@@ -1,0 +1,14 @@
+# Packaged Helm charts
+*.tgz
+charts/*.tgz
+
+# Local / secret values
+secrets.yaml
+values-*.local.yaml
+.env
+
+# OS / editor
+.DS_Store
+*.log
+.idea/
+.vscode/
