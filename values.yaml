@@ -31,3 +31,4 @@ resources:
     cpu: "150m"
 
 
+secrets_keys: []
