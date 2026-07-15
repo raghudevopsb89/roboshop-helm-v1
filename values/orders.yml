@@ -8,10 +8,13 @@ config_map:
   MONGO_URL : mongodb://mongodb-dev.rdevopsb89.online:27017/orders
   AMQP_HOST : rabbitmq-dev.rdevopsb89.online
   AMQP_USER : roboshop
-  AMQP_PASS : RoboShop@1
+  #AMQP_PASS : RoboShop@1
   SHIPPING_URL : http://roboshop-shipping:8004
   NOTIFICATION_URL : http://localhost:8008
   PORT : "8007"
+
+secrets_keys:
+  - AMQP_PASS
 
 resources:
   requests:
