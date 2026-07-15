@@ -7,9 +7,13 @@ prometheus:
 config_map:
   DB_HOST : mysql-dev.rdevopsb89.online
   DB_USER : shipping
-  DB_PASS : RoboShop@1
-  MYSQL_ROOT_PASSWORD : RoboShop@1
+  #DB_PASS : RoboShop@1
+  #MYSQL_ROOT_PASSWORD : RoboShop@1
   PORT : "8004"
+
+secrets_keys:
+  - DB_PASS
+  - MYSQL_ROOT_PASSWORD
 
 job:
   enabled: true
