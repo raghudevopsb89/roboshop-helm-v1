@@ -15,3 +15,5 @@ prometheus:
 
 ingress:
   enabled: true
+
+secrets_keys: []
