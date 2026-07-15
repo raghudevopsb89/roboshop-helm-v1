@@ -59,7 +59,6 @@ spec:
         envFrom:
           - secretRef:
               name: roboshop-{{ .Values.app_name }}
-        envFrom:
           - configMapRef:
               name: roboshop-{{ .Values.app_name }}
       {{- if and .Values.prometheus .Values.prometheus.exporter .Values.prometheus.exporter.enabled }}
