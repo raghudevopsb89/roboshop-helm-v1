@@ -5,8 +5,11 @@ config_map:
   REDIS_HOST : valkey-dev.rdevopsb89.online
   CATALOGUE_URL : http://roboshop-catalogue:8002
   PORT : "8003"
-  NEW_RELIC_LICENSE_KEY: b1d3d69660c3e7f58b48d1974fd0776b24a3NRAL
+#  NEW_RELIC_LICENSE_KEY: b1d3d69660c3e7f58b48d1974fd0776b24a3NRAL
   NEW_RELIC_APP_NAME: cart
+
+secrets_keys:
+  - NEW_RELIC_LICENSE_KEY
 
 resources:
   requests:
