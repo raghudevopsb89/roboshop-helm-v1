@@ -16,4 +16,6 @@ prometheus:
 ingress:
   enabled: true
 
-secrets_keys: []
+secrets_keys:
+  - dummy
+
