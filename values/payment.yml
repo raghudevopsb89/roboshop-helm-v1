@@ -10,6 +10,8 @@ config_map:
   PORT : "8005"
   NEW_RELIC_LICENSE_KEY: b1d3d69660c3e7f58b48d1974fd0776b24a3NRAL
 
+secrets_keys:
+  - NEW_RELIC_LICENSE_KEY
 
 resources:
   requests:
