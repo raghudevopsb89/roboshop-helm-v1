@@ -4,10 +4,14 @@ app_port: 8006
 config_map:
   MYSQL_HOST : mysql-dev.rdevopsb89.online
   MYSQL_USER : ratings
-  MYSQL_PASSWORD : RoboShop@1
-  MYSQL_ROOT_PASSWORD : RoboShop@1
+  #MYSQL_PASSWORD : RoboShop@1
+  #MYSQL_ROOT_PASSWORD : RoboShop@1
   MYSQL_DATABASE : ratings
   PORT : "8006"
+
+secrets_keys:
+  - MYSQL_PASSWORD
+  - MYSQL_ROOT_PASSWORD
 
 job:
   enabled: true
