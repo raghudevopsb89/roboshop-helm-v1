@@ -15,6 +15,6 @@ spec:
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}-db
         imagePullPolicy: Always
         envFrom:
-          - configMapRef:
+          - secretRef:
               name: roboshop-{{ .Values.app_name }}
 {{ end }}
