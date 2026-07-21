@@ -10,14 +10,21 @@ spec:
   template:
     spec:
       securityContext:
-        runAsUser: 1000
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
       restartPolicy: Never
       containers:
       - name: roboshop-{{ .Values.app_name }}-db
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}-db
         imagePullPolicy: Always
         securityContext:
-          allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true  # Change to true if your container doesn't write to local disk
+            capabilities:
+              drop:
+                - ALL
         envFrom:
           - configMapRef:
               name: roboshop-{{ .Values.app_name }}
