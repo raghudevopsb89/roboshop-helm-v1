@@ -9,6 +9,8 @@ metadata:
 spec:
   template:
     spec:
+      securityContext:
+        runAsUser: 1000
       restartPolicy: Never
       containers:
       - name: roboshop-{{ .Values.app_name }}-db
