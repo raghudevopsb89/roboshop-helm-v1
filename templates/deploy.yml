@@ -25,12 +25,21 @@ spec:
       {{- end }}
     spec:
       terminationGracePeriodSeconds: 120
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
       containers:
       - name: roboshop-{{ .Values.app_name }}
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}:{{ .Values.github_sha }}
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
         lifecycle:
           preStop:
             exec:
