@@ -81,6 +81,12 @@ spec:
       {{- if and .Values.prometheus .Values.prometheus.exporter .Values.prometheus.exporter.enabled }}
       - name: nginx-exporter
         image: {{ .Values.prometheus.exporter.image | default "nginx/nginx-prometheus-exporter:1.4.2" }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
         args:
           - -nginx.scrape-uri=http://127.0.0.1:{{ .Values.app_port }}/stub_status
         ports:
