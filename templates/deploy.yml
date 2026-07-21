@@ -24,6 +24,9 @@ spec:
         prometheus.io/path: {{ .Values.prometheus.path | default "/metrics" | quote }}
       {{- end }}
     spec:
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
       terminationGracePeriodSeconds: 120
       securityContext:
         runAsNonRoot: true
@@ -34,6 +37,9 @@ spec:
       - name: roboshop-{{ .Values.app_name }}
         image: raghudevopsb89.azurecr.io/roboshop-{{ .Values.app_name }}:{{ .Values.github_sha }}
         imagePullPolicy: Always
+        volumeMounts:
+          - name: tmp-volume
+            mountPath: /tmp
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
