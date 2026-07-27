@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
+    raefik.ingress.kubernetes.io/router.middlewares: roboshop-{{ .Values.app_name }}-redirect-https@kubernetescrd
   name: roboshop-{{ .Values.app_name }}
 spec:
   ingressClassName: traefik
