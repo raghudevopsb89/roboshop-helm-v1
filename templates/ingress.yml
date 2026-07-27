@@ -2,9 +2,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
   name: roboshop-{{ .Values.app_name }}
 spec:
   ingressClassName: traefik
+  tls:
+  - hosts:
+    - {{ .Values.app_name }}-dev.rdevopsb89.online
+    secretName: roboshop-{{ .Values.app_name }}-tls
   rules:
     - host: {{ .Values.app_name }}-dev.rdevopsb89.online
       http:
