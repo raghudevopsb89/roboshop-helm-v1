@@ -2,16 +2,10 @@
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: ex1-allow
-  namespace: example1
+  name: {{.Values.app_name}}-allow
 spec:
   action: ALLOW
   rules:
-  - from:
-    - source:
-        principals: ["cluster.local/ns/example2/sa/debug"]
-    to:
-    - operation:
-        methods: ["GET"]
-        paths: ["*"]
+    - {}
+
 

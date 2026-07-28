@@ -28,6 +28,7 @@ spec:
         - name: tmp-volume
           emptyDir: {}
       terminationGracePeriodSeconds: 120
+      serviceAccountName: {{.Values.app_name}}-sa
       securityContext:
         runAsNonRoot: true
         runAsUser: 10001
