@@ -2,6 +2,18 @@
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
+  name: {{ .Values.app_name }}-deny-all
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+  action: DENY
+  rules:
+  - {}
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
   name: {{ .Values.app_name }}-allow
 spec:
   action: ALLOW
