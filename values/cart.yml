@@ -20,6 +20,7 @@ resources:
     cpu: "1000m"
 
 principals_list:
-  - "frontend"
+  - "frontend" # nginx.conf proxy_pass /api/cart
+  - "payment"  # payment/main.py CART_URL -> GET+DELETE /cart/{userId}
 
 

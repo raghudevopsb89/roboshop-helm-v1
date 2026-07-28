@@ -8,6 +8,17 @@ config_map: {}
 
 service_type: ClusterIP
 
+istio:
+  enabled: true
+  mtls_mode: PERMISSIVE
+  # Mesh-edge workloads only. Clients outside the mesh (the Traefik ingress
+  # controller) have no SPIFFE identity, so no principal rule can match them.
+  allow_unauthenticated: false
+
+# Service accounts allowed to call this service, as `<name>` -> `<name>-sa`.
+# Empty means nothing may call it: the AuthorizationPolicy defaults to deny.
+principals_list: []
+
 prometheus:
   enabled: true
   path: /metrics

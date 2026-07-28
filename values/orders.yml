@@ -25,6 +25,6 @@ resources:
     cpu: "450m"
 
 principals_list:
-  - "frontend"
+  - "frontend" # nginx.conf proxy_pass /api/orders
 
 

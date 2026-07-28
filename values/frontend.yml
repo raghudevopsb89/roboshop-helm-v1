@@ -19,5 +19,10 @@ ingress:
 secrets_keys:
   - dummy
 
+# Mesh edge: Traefik terminates the ingress and has no sidecar, so there is no
+# principal to allow. Authorization is enforced on the services frontend calls.
+istio:
+  allow_unauthenticated: true
+
 principals_list: []
 

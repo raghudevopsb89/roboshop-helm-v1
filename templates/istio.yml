@@ -1,27 +1,67 @@
+{{- if .Values.istio.enabled }}
+{{- $fullName := printf "roboshop-%s" .Values.app_name -}}
+{{- $prometheusEnabled := true -}}
+{{- if and .Values.prometheus (kindIs "bool" .Values.prometheus.enabled) -}}
+{{- $prometheusEnabled = .Values.prometheus.enabled -}}
+{{- end -}}
+{{- $hasRule := or .Values.istio.allow_unauthenticated .Values.principals_list $prometheusEnabled }}
 ---
+# Default-deny for this workload.
+# Istio needs no separate DENY policy here: the moment an ALLOW policy selects a
+# workload, every request that matches none of its rules is rejected. A DENY
+# policy is evaluated *before* ALLOW, so a blanket `action: DENY` with `rules: [{}]`
+# would shadow every rule below and black-hole the service entirely.
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: {{ .Values.app_name }}-deny-all
+  name: {{ $fullName }}-allow
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.app_name }}
-  action: DENY
-  rules:
-  - {}
----
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
-  name: {{ .Values.app_name }}-allow
-spec:
+      app: {{ $fullName }} # must match the pod labels in deploy.yml
   action: ALLOW
-  rules:
+  rules:{{ if not $hasRule }} []{{ end }}
+  {{- if .Values.istio.allow_unauthenticated }}
+  # Mesh edge: traffic arrives from the Traefik ingress controller, which runs
+  # outside the mesh and so carries no SPIFFE identity for a principal to match.
+  - to:
+    - operation:
+        ports: [{{ .Values.app_port | quote }}]
+  {{- else }}
+  {{- with .Values.principals_list }}
+  # Only these callers may reach the application port. Everything else is denied.
   - from:
     - source:
         principals:
-        {{- range .Values.principals_list }}
-        - "cluster.local/ns/roboshop/sa/{{ . }}-sa"
+        {{- range . }}
+        - "cluster.local/ns/{{ $.Release.Namespace }}/sa/{{ . }}-sa"
         {{- end }}
-
+    to:
+    - operation:
+        ports: [{{ $.Values.app_port | quote }}]
+  {{- end }}
+  {{- end }}
+  {{- if $prometheusEnabled }}
+  # Prometheus also runs outside the mesh, so this is scoped to the scrape path
+  # rather than to a source identity.
+  - to:
+    - operation:
+        methods: ["GET"]
+        paths: [{{ .Values.prometheus.path | default "/metrics" | quote }}]
+  {{- end }}
+---
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: {{ $fullName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $fullName }}
+  mtls:
+    # PERMISSIVE, not STRICT: Traefik and kube-prometheus-stack both live outside
+    # the mesh and talk to these ports in plaintext. Identity is still enforced by
+    # the AuthorizationPolicy above -- a plaintext caller has no principal, so it
+    # matches no `from` rule and is denied.
+    mode: {{ .Values.istio.mtls_mode | default "PERMISSIVE" }}
+{{- end }}

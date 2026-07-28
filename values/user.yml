@@ -24,6 +24,7 @@ resources:
     cpu: "1000m"
 
 principals_list:
-  - "frontend"
+  - "frontend" # nginx.conf proxy_pass /api/user
+  - "payment"  # payment/main.py USER_URL -> /validate/{userId}
 
 

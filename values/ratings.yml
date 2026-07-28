@@ -17,6 +17,6 @@ job:
   enabled: true
 
 principals_list:
-  - "frontend"
+  - "frontend" # nginx.conf proxy_pass /api/ratings
 
 

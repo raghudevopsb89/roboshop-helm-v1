@@ -22,6 +22,6 @@ resources:
     cpu: "250m"
 
 principals_list:
-  - "frontend"
+  - "frontend" # nginx.conf proxy_pass /api/payment
 
 
