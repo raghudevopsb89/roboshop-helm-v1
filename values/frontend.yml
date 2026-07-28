@@ -19,3 +19,5 @@ ingress:
 secrets_keys:
   - dummy
 
+principals_list: []
+
