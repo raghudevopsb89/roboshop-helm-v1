@@ -26,5 +26,8 @@ resources:
     memory: "750Mi"
     cpu: "900m"
 
+principals_list:
+  - "frontend"
+
 
 
