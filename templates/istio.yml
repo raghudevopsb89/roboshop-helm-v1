@@ -2,10 +2,14 @@
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: {{.Values.app_name}}-allow
+  name: {{ .Values.app_name }}-allow
 spec:
   action: ALLOW
   rules:
-    - {}
-
+  - from:
+    - source:
+        principals:
+        {{- range .Values.principals_list }}
+        - "cluster.local/ns/roboshop/sa/{{ . }}-sa"
+        {{- end }}
 

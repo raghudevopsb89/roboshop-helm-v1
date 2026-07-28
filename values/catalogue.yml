@@ -16,4 +16,5 @@ secrets_keys:
 job:
   enabled: true
 
-
+principals_list:
+  - "frontend"
