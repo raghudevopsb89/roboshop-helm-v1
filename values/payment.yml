@@ -24,4 +24,6 @@ resources:
 principals_list:
   - "frontend" # nginx.conf proxy_pass /api/payment
 
+istio:
+  mtls_mode: STRICT
 

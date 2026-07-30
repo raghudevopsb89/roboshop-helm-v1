@@ -23,4 +23,6 @@ principals_list:
   - "frontend" # nginx.conf proxy_pass /api/cart
   - "payment"  # payment/main.py CART_URL -> GET+DELETE /cart/{userId}
 
+istio:
+  mtls_mode: STRICT
 

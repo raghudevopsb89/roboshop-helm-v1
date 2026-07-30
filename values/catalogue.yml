@@ -19,3 +19,6 @@ job:
 principals_list:
   - "frontend" # nginx.conf proxy_pass /api/catalogue
   - "cart"     # cart/server.js CATALOGUE_URL -> /products/{id}
+
+istio:
+  mtls_mode: STRICT

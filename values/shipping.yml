@@ -30,5 +30,7 @@ principals_list:
   - "frontend" # nginx.conf proxy_pass /api/shipping
   - "orders"   # OrderListener.java shipping.url
 
+istio:
+  mtls_mode: STRICT
 
 

@@ -28,3 +28,5 @@ principals_list:
   - "frontend" # nginx.conf proxy_pass /api/orders
 
 
+istio:
+  mtls_mode: STRICT
