@@ -44,4 +44,5 @@ resources:
 
 secrets_keys: []
 
-github_sha: default
+github_sha: latest
+
