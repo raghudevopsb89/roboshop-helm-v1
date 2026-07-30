@@ -27,4 +27,6 @@ principals_list:
   - "frontend" # nginx.conf proxy_pass /api/user
   - "payment"  # payment/main.py USER_URL -> /validate/{userId}
 
+istio:
+  mtls_mode: STRICT
 
