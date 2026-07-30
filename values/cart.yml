@@ -26,4 +26,4 @@ principals_list:
 istio:
   mtls_mode: STRICT
 
-github_sha: default
+
